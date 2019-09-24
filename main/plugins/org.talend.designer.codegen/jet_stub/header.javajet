@@ -158,14 +158,14 @@ if (talendEsbJobFactory) {
 public class <%=className%> implements <%=talendJobInterfaces%> {
 <%if(isLog4jEnabled){%>
 	static {System.setProperty("TalendJob.log", "<%=className%>.log");}
-<%}%>
 
-<%if(isLog4j1Enabled){%>
+	<%if(isLog4j1Enabled){%>
 	private static org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(<%=className%>.class);
-<%}%>
+	<%}%>
 
-<%if(isLog4j2Enabled){%>
+	<%if(isLog4j2Enabled){%>
 	private static org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(<%=className%>.class);
+	<%}%>
 <%}%>
 
 protected static void logIgnoredError(String message, Throwable cause) {
