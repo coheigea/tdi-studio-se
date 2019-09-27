@@ -203,10 +203,10 @@
                  id="log4j-1.2.17.jar">
            </library>
            <library
-                 id="slf4j-api-1.7.5.jar">
+                 id="slf4j-api-1.8.0-beta4.jar">
            </library>
            <library
-                 id="slf4j-log4j12-1.7.5.jar">
+                 id="slf4j-log4j12-1.8.0-beta4.jar">
            </library>
            <library
                  id="commons-logging-1.1.3.jar">
