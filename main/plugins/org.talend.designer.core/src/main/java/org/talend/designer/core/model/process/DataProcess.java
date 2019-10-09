@@ -1958,6 +1958,7 @@ public class DataProcess implements IGeneratingProcess {
 	        	jobStructure.setStart(true);
 	        	jobStructure.setSubProcessStart(true);
 	        	jobStructure.setProcess(duplicatedProcess);
+	        	//jobStructure.getElementParameter("");//log4j1 or log4j2
 	        	addDataNode(jobStructure);
 
 	        	//TODO consider to remove it as may not necessary
