@@ -28,7 +28,7 @@ public class JobEventAuditLoggerFactory {
 			// do nothing
 		}
 
-		////load log4j1 implement if not found log4j2
+		//load log4j1 implement if not found log4j2
 		if (logger == null) {
 			loggerClass = "org.talend.logging.audit.log4j1.Log4j1Backend";
 			try {

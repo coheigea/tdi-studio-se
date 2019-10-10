@@ -14,7 +14,7 @@ public class UpdateLog4jJarUtils {
         if (isSelectLog4j2) {
             boolean foundLog4j2CoreJar = false;
             boolean foundLog4j2ApiJar = false;
-//            boolean foundLog4j2AdapterJar = false;
+            boolean foundSlfLog4j2ImplJar = false;
             for (String jar : jarList) {
                 if (jar.matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     moduleDeleteList.add(jar);
@@ -25,20 +25,19 @@ public class UpdateLog4jJarUtils {
                 if (jar.matches("log4j-api-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     foundLog4j2ApiJar = true;
                 }
-//                if (jar.matches("log4j-\\d+\\.\\d+\\-api-2.12.1.jar")) { //$NON-NLS-1$
-//                    foundLog4j2AdapterJar = true;
-//                }
+                if (jar.matches("log4j-slf4j-impl-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
+                	foundSlfLog4j2ImplJar = true;
+                }
             }
             if (!foundLog4j2CoreJar) {
                 moduleNeededList.add("log4j-core-2.12.1.jar");//$NON-NLS-1$
-
             }
             if (!foundLog4j2ApiJar) {
                 moduleNeededList.add("log4j-api-2.12.1.jar");//$NON-NLS-1$
             }
-//            if (!foundLog4j2AdapterJar) {
-//                moduleNeededList.add("log4j-1.2-api-2.12.1.jar");//$NON-NLS-1$
-//            }
+            if (!foundSlfLog4j2ImplJar) {
+                moduleNeededList.add("log4j-slf4j-impl-2.12.1.jar");//$NON-NLS-1$
+            }
 
         } else {
             boolean foundLog4jJar = false;
@@ -52,9 +51,9 @@ public class UpdateLog4jJarUtils {
                 if (jar.matches("log4j-api-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     moduleDeleteList.add(jar);
                 }
-//                if (jar.matches("log4j-\\d+\\.\\d+\\-api-2.12.1.jar")) { //$NON-NLS-1$
-//                    moduleDeleteList.add(jar);
-//                }
+                if (jar.matches("log4j-slf4j-impl-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
+                    moduleDeleteList.add(jar);
+                }
             }
             if (!foundLog4jJar) {
                 moduleNeededList.add("log4j-1.2.17.jar");//$NON-NLS-1$
