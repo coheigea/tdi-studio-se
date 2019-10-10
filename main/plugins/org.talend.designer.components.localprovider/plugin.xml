@@ -798,16 +798,16 @@
 
         <libraryNeeded
             context="plugin:org.talend.libraries.slf4j"
-            id="slf4j-api-1.8.0-beta4.jar"
-            name="slf4j-api-1.8.0-beta4.jar" mvn_uri="mvn:org.slf4j/slf4j-api/1.8.0-beta4"
-            uripath="platform:/plugin/org.talend.libraries.slf4j/lib/slf4j-api-1.8.0-beta4.jar">
+            id="slf4j-api-1.7.10.jar"
+            name="slf4j-api-1.7.10.jar" mvn_uri="mvn:org.talend.libraries/slf4j-api-1.7.10/6.0.0"
+            uripath="platform:/plugin/org.talend.libraries.slf4j/lib/slf4j-api-1.7.10.jar">
         </libraryNeeded>
 
         <libraryNeeded
             context="plugin:org.talend.libraries.slf4j"
-            id="slf4j-log4j12-1.8.0-beta4.jar"
-            name="slf4j-log4j12-1.8.0-beta4.jar" mvn_uri="mvn:org.slf4j/slf4j-log4j12/1.8.0-beta4"
-            uripath="platform:/plugin/org.talend.libraries.slf4j/lib/slf4j-log4j12-1.8.0-beta4.jar">
+            id="slf4j-log4j12-1.7.10.jar"
+            name="slf4j-log4j12-1.7.10.jar" mvn_uri="mvn:org.talend.libraries/slf4j-log4j12-1.7.10/6.0.0"
+            uripath="platform:/plugin/org.talend.libraries.slf4j/lib/slf4j-log4j12-1.7.10.jar">
         </libraryNeeded>
 
         <libraryNeeded
@@ -1875,6 +1875,20 @@
          	uripath="platform:/plugin/org.talend.libraries.hadoop.hdp.2.0/lib/protobuf-java-2.5.0.jar">
     	</libraryNeeded>
 
+        <libraryNeeded
+            context="plugin:org.talend.libraries.slf4j"
+            id="slf4j-api-1.7.5.jar"
+            name="slf4j-api-1.7.5.jar" mvn_uri="mvn:org.talend.libraries/slf4j-api-1.7.5/6.0.0"
+            uripath="platform:/plugin/org.talend.libraries.slf4j/lib/slf4j-api-1.7.5.jar"
+            bundleID="" />
+
+        <libraryNeeded
+            context="plugin:org.talend.libraries.slf4j"
+            id="slf4j-log4j12-1.7.5.jar"
+            name="slf4j-log4j12-1.7.5.jar" mvn_uri="mvn:org.talend.libraries/slf4j-log4j12-1.7.5/6.0.0"
+            uripath="platform:/plugin/org.talend.libraries.slf4j/lib/slf4j-log4j12-1.7.5.jar"
+            bundleID="" />
+
 	   	<libraryNeeded
            context="plugin:org.talend.libraries.hadoop.cloudera.cdh5.1"
            id="jersey-core-1.9.jar"
@@ -2828,6 +2842,18 @@
             uripath="platform:/plugin/org.talend.libraries.hadoop.hdp.2.2/lib/tezServer/servlet-api-2.5.jar">
         </libraryNeeded>
         <libraryNeeded
+            id="slf4j-api-1.7.5.jar"
+            name="slf4j-api-1.7.5.jar" mvn_uri="mvn:org.talend.libraries/slf4j-api-1.7.5/6.0.0"
+            context="plugin:org.talend.libraries.hadoop.hdp.2.2"
+            uripath="platform:/plugin/org.talend.libraries.hadoop.hdp.2.2/lib/tezServer/slf4j-api-1.7.5.jar">
+        </libraryNeeded>
+        <libraryNeeded
+            id="slf4j-log4j12-1.7.5.jar"
+            name="slf4j-log4j12-1.7.5.jar" mvn_uri="mvn:org.talend.libraries/slf4j-log4j12-1.7.5/6.0.0"
+            context="plugin:org.talend.libraries.hadoop.hdp.2.2"
+            uripath="platform:/plugin/org.talend.libraries.hadoop.hdp.2.2/lib/tezServer/slf4j-log4j12-1.7.5.jar">
+        </libraryNeeded>
+        <libraryNeeded
             id="snappy-java-1.0.4.1.jar"
             name="snappy-java-1.0.4.1.jar" mvn_uri="mvn:org.talend.libraries/snappy-java-1.0.4.1/6.0.0"
             context="plugin:org.talend.libraries.hadoop.hdp.2.2"
@@ -2924,6 +2950,18 @@
             name="log4j-1.2.16.jar" mvn_uri="mvn:log4j/log4j/1.2.16"
             context="plugin:org.talend.libraries.apache.kafka"
             uripath="platform:/plugin/org.talend.libraries.apache.kafka/lib/log4j-1.2.16.jar">
+        </libraryNeeded>
+        <libraryNeeded
+            id="slf4j-api-1.7.6.jar"
+            name="slf4j-api-1.7.6.jar" mvn_uri="mvn:org.talend.libraries/slf4j-api-1.7.6/6.0.0"
+            context="plugin:org.talend.libraries.apache.kafka"
+            uripath="platform:/plugin/org.talend.libraries.apache.kafka/lib/slf4j-api-1.7.6.jar">
+        </libraryNeeded>
+        <libraryNeeded
+            id="slf4j-log4j12-1.6.1.jar"
+            name="slf4j-log4j12-1.6.1.jar" mvn_uri="mvn:org.talend.libraries/slf4j-log4j12-1.6.1/6.0.0"
+            context="plugin:org.talend.libraries.apache.kafka"
+            uripath="platform:/plugin/org.talend.libraries.apache.kafka/lib/slf4j-log4j12-1.6.1.jar">
         </libraryNeeded>
         <libraryNeeded
             id="commons-lang3-3.0.jar"
@@ -3032,10 +3070,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="log4j-1.2.17.jar">
@@ -3067,8 +3105,8 @@
             <library id="log4j-1.2.17.jar"/>
             <library id="protobuf-java-2.5.0.jar"/>
             <library id="servlet-api-2.5.jar"/>
-            <library id="slf4j-api-1.8.0-beta4.jar"/>
-            <library id="slf4j-log4j12-1.8.0-beta4.jar"/>
+            <library id="slf4j-api-1.7.10.jar"/>
+            <library id="slf4j-log4j12-1.7.10.jar"/>
         </libraryNeededGroup>
 
 	    <!-- HDFS libraries for HDP 2.2 -->
@@ -3110,10 +3148,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="log4j-1.2.17.jar">
@@ -3203,10 +3241,10 @@
                  id="protobuf-java-2.5.0.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="log4j-1.2.17.jar">
@@ -3254,10 +3292,10 @@
 	             id="log4j-1.2.17.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="commons-logging-1.1.3.jar">
@@ -3302,10 +3340,10 @@
                  id="log4j-1.2.17.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="commons-logging-1.1.3.jar">
@@ -3381,10 +3419,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -3459,10 +3497,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -3519,10 +3557,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -3568,8 +3606,8 @@
             <library id="log4j-1.2.17.jar"/>
             <library id="protobuf-java-2.5.0.jar"/>
             <library id="servlet-api-2.5.jar"/>
-            <library id="slf4j-api-1.8.0-beta4.jar"/>
-            <library id="slf4j-log4j12-1.8.0-beta4.jar"/>
+            <library id="slf4j-api-1.7.10.jar"/>
+            <library id="slf4j-log4j12-1.7.10.jar"/>
         </libraryNeededGroup>
 
         <libraryNeededGroup
@@ -3654,10 +3692,10 @@
                  id="protobuf-java-2.5.0.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="jackson-mapper-asl-1.9.13.jar">
@@ -3750,10 +3788,10 @@
                  id="protobuf-java-2.5.0.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="jackson-mapper-asl-1.9.13.jar">
@@ -3855,10 +3893,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -3939,10 +3977,10 @@
                  id="protobuf-java-2.5.0.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="jackson-mapper-asl-1.9.13.jar">
@@ -4138,10 +4176,10 @@
 	             id="log4j-1.2.17.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	    </libraryNeededGroup>
 
@@ -4204,10 +4242,10 @@
 	             id="log4j-1.2.17.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	    </libraryNeededGroup>
 
@@ -4233,8 +4271,8 @@
             <library id="log4j-1.2.17.jar"/>
             <library id="netty-all-4.0.23.Final.jar"/>
             <library id="protobuf-java-2.5.0.jar"/>
-            <library id="slf4j-api-1.8.0-beta4.jar"/>
-            <library id="slf4j-log4j12-1.8.0-beta4.jar"/>
+            <library id="slf4j-api-1.7.10.jar"/>
+            <library id="slf4j-log4j12-1.7.10.jar"/>
             <library id="zookeeper-HDP_2_3"/>
             <library id="hadoop-hdfs-HDP_2_3"/>
             <library id="servlet-api-2.5.jar"/>
@@ -4302,10 +4340,10 @@
 	             id="log4j-1.2.17.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	    </libraryNeededGroup>
 
@@ -4356,10 +4394,10 @@
 	             id="log4j-1.2.17.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	    </libraryNeededGroup>
 
@@ -4410,10 +4448,10 @@
                  id="log4j-1.2.17.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="json-20080701.jar">
@@ -4486,10 +4524,10 @@
 	             id="guava-11.0.2.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -4567,10 +4605,10 @@
 	             id="guava-11.0.2.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -4630,10 +4668,10 @@
 	             id="guava-11.0.2.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -4679,8 +4717,8 @@
             <library id="log4j-1.2.17.jar"/>
             <library id="protobuf-java-2.5.0.jar"/>
             <library id="servlet-api-2.5.jar"/>
-            <library id="slf4j-api-1.8.0-beta4.jar"/>
-            <library id="slf4j-log4j12-1.8.0-beta4.jar"/>
+            <library id="slf4j-api-1.7.10.jar"/>
+            <library id="slf4j-log4j12-1.7.10.jar"/>
             <library id="sqoop-HDP_2_3"/>
         </libraryNeededGroup>
 
@@ -4747,10 +4785,10 @@
 	             id="guava-11.0.2.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.9.13.jar">
@@ -4855,10 +4893,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -4948,10 +4986,10 @@
                  id="protobuf-java-2.5.0.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="jackson-mapper-asl-1.8.8.jar">
@@ -5024,10 +5062,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -5105,10 +5143,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -5168,10 +5206,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -5225,8 +5263,8 @@
             <library id="pig-HDP_2_3"/>
             <library id="protobuf-java-2.5.0.jar"/>
             <library id="servlet-api-2.5.jar"/>
-            <library id="slf4j-api-1.8.0-beta4.jar"/>
-            <library id="slf4j-log4j12-1.8.0-beta4.jar"/>
+            <library id="slf4j-api-1.7.10.jar"/>
+            <library id="slf4j-log4j12-1.7.10.jar"/>
             <library id="snappy-java-1.1.0.1.jar"/>
         </libraryNeededGroup>
  
@@ -5293,10 +5331,10 @@
                  id="protobuf-java-2.5.0.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="jackson-mapper-asl-1.9.13.jar">
@@ -5407,10 +5445,10 @@
                  id="protobuf-java-2.5.0.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="jackson-mapper-asl-1.9.13.jar">
@@ -5539,10 +5577,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -5653,10 +5691,10 @@
                  id="protobuf-java-2.5.0.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="log4j-1.2.17.jar">
@@ -6269,10 +6307,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -6416,10 +6454,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -6524,10 +6562,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -6608,8 +6646,8 @@
             <library id="log4j-1.2.17.jar"/>
             <library id="protobuf-java-2.5.0.jar"/>
             <library id="servlet-api-2.5.jar"/>
-            <library id="slf4j-api-1.8.0-beta4.jar"/>
-            <library id="slf4j-log4j12-1.8.0-beta4.jar"/>
+            <library id="slf4j-api-1.7.10.jar"/>
+            <library id="slf4j-log4j12-1.7.10.jar"/>
             <library id="zookeeper-HDP_2_3"/>
         </libraryNeededGroup>
 
@@ -6703,10 +6741,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.9.13.jar">
@@ -6847,10 +6885,10 @@
                  id="commons-collections-3.2.1.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="log4j-1.2.17.jar">
@@ -6985,10 +7023,10 @@
 	             id="protobuf-java-2.5.0.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="jackson-mapper-asl-1.8.8.jar">
@@ -7115,10 +7153,10 @@
                  id="protobuf-java-2.5.0.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="jackson-mapper-asl-1.8.8.jar">
@@ -7251,10 +7289,10 @@
                  id="protobuf-java-2.5.0.jar">
              </library>
              <library
-                 id="slf4j-api-1.8.0-beta4.jar">
+                 id="slf4j-api-1.7.5.jar">
              </library>
              <library
-                 id="slf4j-log4j12-1.8.0-beta4.jar">
+                 id="slf4j-log4j12-1.7.5.jar">
              </library>
              <library
                  id="jackson-mapper-asl-1.8.8.jar">
@@ -7694,8 +7732,8 @@
             <library id="jsr305-2.0.3.jar"/>
             <library id="log4j-1.2.17.jar"/>
             <library id="protobuf-java-2.5.0.jar"/>
-            <library id="slf4j-api-1.8.0-beta4.jar"/>
-            <library id="slf4j-log4j12-1.8.0-beta4.jar"/>
+            <library id="slf4j-api-1.7.10.jar"/>
+            <library id="slf4j-log4j12-1.7.10.jar"/>
             <library id="tez-api-HDP_2_3"/>
             <library id="tez-common-HDP_2_3"/>
             <library id="tez-dag-HDP_2_3"/>
@@ -7834,8 +7872,8 @@
             <library id="netty-3.6.2.Final.jar"/>
             <library id="paranamer-2.3.jar"/>
             <library id="servlet-api-2.5.jar"/>
-            <library id="slf4j-api-1.8.0-beta4.jar"/>
-            <library id="slf4j-log4j12-1.8.0-beta4.jar"/>
+            <library id="slf4j-api-1.7.10.jar"/>
+            <library id="slf4j-log4j12-1.7.10.jar"/>
             <library id="snappy-java-1.0.4.1.jar"/>
             <library id="stax-api-1.0-2.jar"/>
             <library id="xercesImpl-2.9.1.jar"/>
@@ -7986,10 +8024,10 @@
                 id="servlet-api-2.5.jar">
             </library>
             <library
-                id="slf4j-api-1.8.0-beta4.jar">
+                id="slf4j-api-1.7.5.jar">
             </library>
             <library
-                id="slf4j-log4j12-1.8.0-beta4.jar">
+                id="slf4j-log4j12-1.7.5.jar">
             </library>
             <library
                 id="snappy-java-1.0.4.1.jar">
@@ -8065,10 +8103,10 @@
 	             id="guava-11.0.2.jar">
 	         </library>
 	         <library
-	             id="slf4j-api-1.8.0-beta4.jar">
+	             id="slf4j-api-1.7.5.jar">
 	         </library>
 	         <library
-	             id="slf4j-log4j12-1.8.0-beta4.jar">
+	             id="slf4j-log4j12-1.7.5.jar">
 	         </library>
 	         <library
 	             id="log4j-1.2.17.jar">
@@ -8131,8 +8169,8 @@
             <library id="zkclient-0.3.jar"/>
             <library id="zookeeper-3.4.6.jar"/>
             <library id="log4j-1.2.17.jar"/>
-            <library id="slf4j-api-1.8.0-beta4.jar"/>
-            <library id="slf4j-log4j12-1.8.0-beta4.jar"/>
+            <library id="slf4j-api-1.7.6.jar"/>
+            <library id="slf4j-log4j12-1.6.1.jar"/>
         </libraryNeededGroup>
         <libraryNeeded
               context="plugin:org.talend.libraries.apache.axis2"
