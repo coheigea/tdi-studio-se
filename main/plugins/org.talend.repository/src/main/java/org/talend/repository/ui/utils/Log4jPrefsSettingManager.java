@@ -176,7 +176,8 @@ public class Log4jPrefsSettingManager {
         if (!org.talend.core.PluginChecker.isCoreTISPluginLoaded()) {
             return false;
         }
-        if (Log4jUtil.isEnable() && Boolean.parseBoolean(getValueOfPreNode(Log4jPrefsConstants.LOG4J_SELECT_VERSION2))) {
+        if (Log4jUtil.isEnable() && isLog4jEnable()
+                && Boolean.parseBoolean(getValueOfPreNode(Log4jPrefsConstants.LOG4J_SELECT_VERSION2))) {
             return true;
         }
         return false;
