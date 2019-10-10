@@ -91,6 +91,7 @@ import org.talend.core.ui.component.ComponentsFactoryProvider;
 import org.talend.daikon.properties.Properties;
 import org.talend.daikon.properties.PropertiesVisitor;
 import org.talend.daikon.properties.property.PropertyValueEvaluator;
+import org.talend.designer.core.CheckLogManamger;
 import org.talend.designer.core.i18n.Messages;
 import org.talend.designer.core.model.components.AbstractBasicComponent;
 import org.talend.designer.core.model.components.EParameterName;
@@ -1958,7 +1959,11 @@ public class DataProcess implements IGeneratingProcess {
 	        	jobStructure.setStart(true);
 	        	jobStructure.setSubProcessStart(true);
 	        	jobStructure.setProcess(duplicatedProcess);
-	        	//jobStructure.getElementParameter("");//log4j1 or log4j2
+	        	if(!CheckLogManamger.isSelectLog4j2()) {
+	        		jobStructure.getElementParameter("LOG4J_VERSION").setValue("LOG4J1");
+	        	} else {
+	        		jobStructure.getElementParameter("LOG4J_VERSION").setValue("LOG4J2");
+	        	}
 	        	addDataNode(jobStructure);
 
 	        	//TODO consider to remove it as may not necessary
