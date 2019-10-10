@@ -85,7 +85,7 @@ public class UpdateLog4jJarUtils {
                 if (jar.getModuleName().matches("log4j-api-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     foundLog4j2ApiJar = true;
                 }
-                if (jar.getModuleName().matches("log4j-slf4j18-impl-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
+                if (jar.getModuleName().matches("log4j-slf4j-impl-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                 	foundSlfLog4j2ImplJar = true;
                 }
             }
@@ -102,8 +102,8 @@ public class UpdateLog4jJarUtils {
                 moduleNeededList.add(log4jApi);
             }
             if (!foundSlfLog4j2ImplJar) {
-                ModuleNeeded log4jCore = new ModuleNeeded("org.apache.logging.log4j", "log4j-slf4j18-impl-2.12.1.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
-                log4jCore.setMavenUri("mvn:org.apache.logging.log4j/log4j-slf4j18-impl/2.12.1");//$NON-NLS-1$
+                ModuleNeeded log4jCore = new ModuleNeeded("org.apache.logging.log4j", "log4j-slf4j-impl-2.12.1.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
+                log4jCore.setMavenUri("mvn:org.apache.logging.log4j/log4j-slf4j-impl/2.12.1");//$NON-NLS-1$
                 moduleNeededList.add(log4jCore);
             }
 
@@ -119,7 +119,7 @@ public class UpdateLog4jJarUtils {
                 if (jar.getModuleName().matches("log4j-api-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     moduleDeleteList.add(jar);
                 }
-                if (jar.getModuleName().matches("log4j-slf4j18-impl-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
+                if (jar.getModuleName().matches("log4j-slf4j-impl-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     moduleDeleteList.add(jar);
                 }
             }
