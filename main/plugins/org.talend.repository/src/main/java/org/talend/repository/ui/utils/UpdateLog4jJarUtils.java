@@ -19,6 +19,10 @@ public class UpdateLog4jJarUtils {
                 if (jar.matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     moduleDeleteList.add(jar);
                 }
+                if (jar.matches("slf4j-log4j12-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
+                    moduleDeleteList.add(jar);
+                }
+                
                 if (jar.matches("log4j-core-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     foundLog4j2CoreJar = true;
                 }
@@ -41,10 +45,15 @@ public class UpdateLog4jJarUtils {
 
         } else {
             boolean foundLog4jJar = false;
+            boolean foundSlfLog4jImplJar = false;
             for (String jar : jarList) {
                 if (jar.matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     foundLog4jJar = true;
                 }
+                if (jar.matches("slf4j-log4j12-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
+                	foundSlfLog4jImplJar = true;
+                }
+                
                 if (jar.matches("log4j-core-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     moduleDeleteList.add(jar);
                 }
@@ -58,7 +67,9 @@ public class UpdateLog4jJarUtils {
             if (!foundLog4jJar) {
                 moduleNeededList.add("log4j-1.2.17.jar");//$NON-NLS-1$
             }
-
+            if (!foundSlfLog4jImplJar) {
+                moduleNeededList.add("slf4j-log4j12-1.7.25.jar");//$NON-NLS-1$
+            }
         }
         jarList.removeAll(moduleDeleteList);
         jarList.addAll(moduleNeededList);
@@ -78,6 +89,10 @@ public class UpdateLog4jJarUtils {
                 if (jar.getModuleName().matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     moduleDeleteList.add(jar);
                 }
+                if (jar.getModuleName().matches("slf4j-log4j12-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
+                    moduleDeleteList.add(jar);
+                }
+                
                 if (jar.getModuleName().matches("log4j-core-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     foundLog4j2CoreJar = true;
                 }
@@ -108,10 +123,15 @@ public class UpdateLog4jJarUtils {
 
         } else {
             boolean foundLog4jJar = false;
+            boolean foundSlfLog4jImplJar = false;
             for (ModuleNeeded jar : jarList) {
                 if (jar.getModuleName().matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     foundLog4jJar = true;
                 }
+                if (jar.getModuleName().matches("slf4j-log4j12-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
+                	foundSlfLog4jImplJar = true;
+                }
+                
                 if (jar.getModuleName().matches("log4j-core-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     moduleDeleteList.add(jar);
                 }
@@ -125,6 +145,11 @@ public class UpdateLog4jJarUtils {
             if (!foundLog4jJar) {
                 ModuleNeeded log4j = new ModuleNeeded("log4j", "log4j-1.2.17.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
                 log4j.setMavenUri("mvn:log4j/log4j/1.2.17");//$NON-NLS-1$
+                moduleNeededList.add(log4j);
+            }
+            if (!foundSlfLog4jImplJar) {
+            	ModuleNeeded log4j = new ModuleNeeded("org.slf4j", "slf4j-log4j12-1.7.25.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
+                log4j.setMavenUri("mvn:org.slf4j/slf4j-log4j12/1.7.25");//$NON-NLS-1$
                 moduleNeededList.add(log4j);
             }
 

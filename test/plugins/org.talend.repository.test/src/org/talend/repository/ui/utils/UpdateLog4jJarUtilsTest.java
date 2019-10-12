@@ -17,6 +17,7 @@ public class UpdateLog4jJarUtilsTest {
         jarList.add("log4j-1.2.17.jar");//$NON-NLS-1$
         jarList.add("log4j-core-2.12.1.jar");//$NON-NLS-1$
         jarList.add("log4j-api-2.12.1.jar");//$NON-NLS-1$
+        jarList.add("log4j-slf4j-impl-2.12.1.jar");//$NON-NLS-1$
 
         boolean addLog4jToJarListLog4j1 = UpdateLog4jJarUtils.addLog4jToJarList(jarList, true);
         assertFalse(addLog4jToJarListLog4j1);
@@ -40,9 +41,12 @@ public class UpdateLog4jJarUtilsTest {
         log4jCore.setMavenUri("mvn:org.apache.logging.log4j/log4j-core/2.12.1");//$NON-NLS-1$
         ModuleNeeded log4jApi = new ModuleNeeded("org.apache.logging.log4j", "log4j-api-2.12.1.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
         log4jApi.setMavenUri("mvn:org.apache.logging.log4j/log4j-api/2.12.1");//$NON-NLS-1$
+        ModuleNeeded log4j2brige = new ModuleNeeded("org.apache.logging.log4j", "log4j-slf4j-impl-2.12.1.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
+        log4j2brige.setMavenUri("mvn:org.apache.logging.log4j/log4j-slf4j-impl/2.12.1");//$NON-NLS-1$
         jarList.add(log4j);
         jarList.add(log4jCore);
         jarList.add(log4jApi);
+        jarList.add(log4j2brige);
 
         boolean addLog4jToJarListLog4j1 = UpdateLog4jJarUtils.addLog4jToModuleList(jarList, true);
         assertFalse(addLog4jToJarListLog4j1);
