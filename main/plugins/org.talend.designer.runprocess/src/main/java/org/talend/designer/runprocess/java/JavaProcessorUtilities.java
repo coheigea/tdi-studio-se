@@ -427,8 +427,8 @@ public class JavaProcessorUtilities {
         }
     }
 
-    public static boolean addLog4jToModuleList(Collection<ModuleNeeded> jarList) {
-        return UpdateLog4jJarUtils.addLog4jToModuleList(jarList, Log4jPrefsSettingManager.getInstance().isSelectLog4j2());
+    public static void addLog4jToModuleList(Collection<ModuleNeeded> jarList) {
+        UpdateLog4jJarUtils.addLog4jToModuleList(jarList, Log4jPrefsSettingManager.getInstance().isSelectLog4j2());
     }
 
     /**
