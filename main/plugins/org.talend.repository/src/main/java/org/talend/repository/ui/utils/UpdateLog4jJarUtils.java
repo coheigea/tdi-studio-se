@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.talend.commons.CommonsPlugin;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IProcess;
@@ -168,6 +170,14 @@ public class UpdateLog4jJarUtils {
             if (highPriorityModuleNeeded != null && !highPriorityModuleNeeded.contains(module)
                     && isNeedRemoveModule(module, module.getModuleName())) {
                 iterator.remove();
+                if (CommonsPlugin.isDebugMode()) {
+                    String processName = "";
+                    if (process != null) {
+                        processName = process.getName();
+                    }
+                    String warning = module.getModuleName() + " is removed for " + processName;//$NON-NLS-1$
+                    CommonExceptionHandler.warn(warning);
+                }
             }
         }
         return modulesUsedBefore;
