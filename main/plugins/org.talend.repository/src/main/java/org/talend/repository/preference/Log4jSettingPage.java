@@ -39,6 +39,8 @@ public class Log4jSettingPage extends ProjectSettingPage {
 
     private String log4jVersion;
 
+    private Boolean isNewProject;
+
     @Override
     public void refresh() {
         // TODO Auto-generated method stub
@@ -124,8 +126,14 @@ public class Log4jSettingPage extends ProjectSettingPage {
         String property = System.getProperty("showLog4j2");//$NON-NLS-1$
         Boolean showLog4j2 = Boolean.valueOf(property);
         combo.setVisible(showLog4j2);
-        combo.setEnabled(
-                Boolean.valueOf(Log4jPrefsSettingManager.getInstance().getValueOfPreNode(Log4jPrefsConstants.LOG4J_ENABLE_NODE)));
+        isNewProject = Boolean
+                .valueOf(Log4jPrefsSettingManager.getInstance().getValueOfPreNode(Log4jPrefsConstants.LOG4J_IS_NEW_PROJECT));
+
+        combo.setEnabled(!isNewProject);
+        if (!isNewProject) {
+            combo.setEnabled(Boolean
+                    .valueOf(Log4jPrefsSettingManager.getInstance().getValueOfPreNode(Log4jPrefsConstants.LOG4J_ENABLE_NODE)));
+        }
         label.setVisible(showLog4j2);
         return group;
     }
@@ -134,15 +142,18 @@ public class Log4jSettingPage extends ProjectSettingPage {
         log4jBtn.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
+                if (isNewProject) {
+                    return;
+                }
                 if (!log4jBtn.getSelection()) {
                     combo.setEnabled(false);
-                    combo.select(0);
+                    combo.select(1);
                     IRunProcessService service = null;
                     if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
                         service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(IRunProcessService.class);
                     }
                     if (service != null) {
-                        String logTemplate = service.getLogTemplate(Log4jPrefsConstants.LOG4JFILEPATH);
+                        String logTemplate = service.getLogTemplate(Log4jPrefsConstants.LOG4J_VERSION2_FILEPATH);
                         templateTxt.setText(logTemplate);
                     }
                 } else {
