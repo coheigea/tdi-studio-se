@@ -1,6 +1,7 @@
 package org.talend.repository.preference;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -181,7 +182,8 @@ public class Log4jSettingPage extends ProjectSettingPage {
                         templateTxt.setText(logTemplate);
                     }
                 }
-
+                MessageDialog.openWarning(combo.getShell(), "", //$NON-NLS-1$
+                        Messages.getString("Log4jSettingPage.RegeneratePomWarnings"));//$NON-NLS-1$
             }
         });
     }
