@@ -124,9 +124,6 @@ public class Log4jSettingPage extends ProjectSettingPage {
         layout.marginHeight = 0;
         layout.horizontalSpacing = 8;
         composite.setLayout(layout);
-        String property = System.getProperty("showLog4j2");//$NON-NLS-1$
-        Boolean showLog4j2 = Boolean.valueOf(property);
-        combo.setVisible(showLog4j2);
         isNewProject = Boolean
                 .valueOf(Log4jPrefsSettingManager.getInstance().getValueOfPreNode(Log4jPrefsConstants.LOG4J_IS_NEW_PROJECT));
 
@@ -135,7 +132,6 @@ public class Log4jSettingPage extends ProjectSettingPage {
             combo.setEnabled(Boolean
                     .valueOf(Log4jPrefsSettingManager.getInstance().getValueOfPreNode(Log4jPrefsConstants.LOG4J_ENABLE_NODE)));
         }
-        label.setVisible(showLog4j2);
         return group;
     }
 
