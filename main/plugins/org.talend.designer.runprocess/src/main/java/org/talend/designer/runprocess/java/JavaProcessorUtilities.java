@@ -371,7 +371,6 @@ public class JavaProcessorUtilities {
             listModulesReallyNeeded.add(jar);
         }
 
-        addLog4jToModuleList(listModulesReallyNeeded, process);
         listModulesReallyNeeded.removeAll(alreadyRetrievedModules);
         alreadyRetrievedModules.addAll(listModulesReallyNeeded);
 

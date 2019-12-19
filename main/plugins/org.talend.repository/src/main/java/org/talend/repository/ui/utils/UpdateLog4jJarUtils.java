@@ -10,7 +10,6 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.CommonExceptionHandler;
-import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IProcess;
@@ -37,6 +36,7 @@ public class UpdateLog4jJarUtils {
     public static void addLog4jToModuleList(Collection<ModuleNeeded> jarList, boolean isSelectLog4j2, IProcess currentProcess) {
         List<ModuleNeeded> modulesUsedBefore = removeLog4jFromModuleListAndGetModulesUsedBefore(currentProcess, jarList);
         addBackModules(jarList, isSelectLog4j2, modulesUsedBefore, currentProcess);
+        System.out.println("=======addLog4jToModuleList===========");
     }
 
     public static final String[] MODULES_NEED_ADDED_BACK = { "log4j-jcl-2.12.1.jar", "log4j-jul-2.12.1.jar",
@@ -57,19 +57,23 @@ public class UpdateLog4jJarUtils {
                 if (module.matches("log4j-jul-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     usedlog4jJulBefore = true;
                 }
-            }
-            if (process instanceof IProcess) {
-                Set<ModuleNeeded> modulesNeededForProcess = CorePlugin.getDefault().getDesignerCoreService()
-                        .getNeededLibrariesForProcessBeforeUpdateLog(process, true);
-                if (modulesNeededForProcess != null) {
-                    for (ModuleNeeded m : modulesNeededForProcess) {
-                        if (m.getModuleName().matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar")) {//$NON-NLS-1$
-                            usedlog4j1JarBefore = true;
-                            break;
-                        }
-                    }
+                if (module.matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar") || module.startsWith("talend-bigdata")) { //$NON-NLS-1$
+                    usedlog4j1JarBefore = true;
                 }
             }
+//            if (process instanceof IProcess) {
+//                Set<ModuleNeeded> modulesNeededForProcess = CorePlugin.getDefault().getDesignerCoreService()
+//                        .getNeededLibrariesForProcessBeforeUpdateLog(process, true);
+//                if (modulesNeededForProcess != null) {
+//                    for (ModuleNeeded m : modulesNeededForProcess) {
+//                        if (m.getModuleName().matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar") //$NON-NLS-1$
+//                                || m.getModuleName().startsWith("talend-bigdata")) {
+////                            usedlog4j1JarBefore = true;
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
             if (usedlog4jJclBefore) {
                 moduleNeededList.add("log4j-jcl-2.12.1.jar");//$NON-NLS-1$
             }
@@ -115,20 +119,24 @@ public class UpdateLog4jJarUtils {
                 if (module.getModuleName().matches("log4j-jul-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     usedlog4jJulBefore = true;
                 }
-            }
-            if (process instanceof IProcess) {
-                Set<ModuleNeeded> modulesNeededForProcess = CorePlugin.getDefault().getDesignerCoreService()
-                        .getNeededLibrariesForProcessBeforeUpdateLog(process, true);
-                if (modulesNeededForProcess != null) {
-                    for (ModuleNeeded m : modulesNeededForProcess) {
-                        if (m.getModuleName().matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar") //$NON-NLS-1$
-                                || m.getModuleName().startsWith("talend-bigdata")) {
-                            usedlog4j1JarBefore = true;
-                            break;
-                        }
-                    }
+                if (module.getModuleName().matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar") //$NON-NLS-1$
+                        || module.getModuleName().startsWith("talend-bigdata")) {
+                    usedlog4j1JarBefore = true;
                 }
             }
+//            if (process instanceof IProcess) {
+//                Set<ModuleNeeded> modulesNeededForProcess = CorePlugin.getDefault().getDesignerCoreService()
+//                        .getNeededLibrariesForProcessBeforeUpdateLog(process, true);
+//                if (modulesNeededForProcess != null) {
+//                    for (ModuleNeeded m : modulesNeededForProcess) {
+//                        if (m.getModuleName().matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar") //$NON-NLS-1$
+//                                || m.getModuleName().startsWith("talend-bigdata")) {
+////                            usedlog4j1JarBefore = true;
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
             if (usedlog4jJclBefore) {
                 ModuleNeeded log4jJcl = new ModuleNeeded("org.apache.logging.log4j", "log4j-jcl-2.12.1.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
                 log4jJcl.setMavenUri("mvn:org.apache.logging.log4j/log4j-jcl/2.12.1");//$NON-NLS-1$
@@ -153,7 +161,7 @@ public class UpdateLog4jJarUtils {
             ModuleNeeded log4jCore = new ModuleNeeded("org.apache.logging.log4j", "log4j-core-2.12.1.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
             log4jCore.setMavenUri("mvn:org.apache.logging.log4j/log4j-core/2.12.1");//$NON-NLS-1$
             moduleNeededList.add(log4jCore);
-           
+
         } else {
             boolean usedjclOverSlf4jBefore = false;
 
