@@ -1,11 +1,17 @@
 package org.talend.designer.core.utils;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import org.talend.commons.CommonsPlugin;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.components.ComponentCategory;
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.BigDataNode;
 import org.talend.core.model.process.EComponentCategory;
 import org.talend.core.model.process.EParameterFieldType;
@@ -17,6 +23,7 @@ import org.talend.designer.core.model.components.DummyComponent;
 import org.talend.designer.core.model.components.ElementParameter;
 import org.talend.designer.core.ui.editor.process.Process;
 import org.talend.designer.core.ui.editor.properties.controllers.AbstractGuessSchemaProcess;
+import org.talend.repository.ui.utils.Log4jPrefsSettingManager;
 
 public class CheckLogManagerTest {
 
@@ -46,40 +53,23 @@ public class CheckLogManagerTest {
             List<IElementParameter> nodeParams = (List<IElementParameter>) node.getElementParameters();
             nodeParams.add(storageConfigurationParam);
 
-//            Set<ModuleNeeded> neededLibraries1 = CorePlugin.getDefault().getDesignerCoreService()
-//                    .getNeededLibrariesForProcessBeforeUpdateLog(processbig, false);
-//
-//            Iterator<ModuleNeeded> iterator = neededLibraries1.iterator();
-//            while (iterator.hasNext()) {
-//                ModuleNeeded module = iterator.next();
-//                if (module.getModuleName().matches("jcl-over-slf4j-\\d+\\.\\d+\\.\\d+\\.jar")
-//                        || module.getModuleName().matches("log4j-jcl-\\d+\\.\\d+\\.\\d+\\.jar")) {
-//                    iterator.remove();
-//                }
-//            }
-//            // case1: if original job need commons-logging:commons-logging:ja for log4j1
-//            CheckLogManamger.updateLog4jToModuleList(neededLibraries1, processbig, false);// log4j1
-//            List<String> modules4log4j = new ArrayList<>();
-//            for (ModuleNeeded moule : neededLibraries1) {
-//                modules4log4j.add(moule.getMavenUri());
-//            }
-//            assertTrue(modules4log4j.contains("mvn:org.slf4j/jcl-over-slf4j/1.7.25/jar"));
-//
-//            // case2: if original job need commons-logging:commons-logging:ja for log4j2
-//            CheckLogManamger.updateLog4jToModuleList(neededLibraries1, processbig, true); // log4j2
-//            modules4log4j = new ArrayList<>();
-//            for (ModuleNeeded moule : neededLibraries1) {
-//                modules4log4j.add(moule.getMavenUri());
-//            }
-//            assertTrue(modules4log4j.contains("mvn:org.apache.logging.log4j/log4j-jcl/2.12.1/jar"));
-//
-//            // case3:if original job need log4j1 jar, add back log4j-1.2-api for log4j2
-//            CheckLogManamger.updateLog4jToModuleList(neededLibraries1, processbig, true); // log4j2
-//            modules4log4j = new ArrayList<>();
-//            for (ModuleNeeded moule : neededLibraries1) {
-//                modules4log4j.add(moule.getMavenUri());
-//            }
-//            assertTrue(modules4log4j.contains("mvn:org.apache.logging.log4j/log4j-1.2-api/2.12.1/jar"));
+            Set<ModuleNeeded> neededLibraries1 = CorePlugin.getDefault().getDesignerCoreService()
+                    .getNeededLibrariesForProcess(processbig, false);
+            boolean selectLog4j2 = Log4jPrefsSettingManager.getInstance().isSelectLog4j2();
+
+            List<String> modules4log4j = new ArrayList<>();
+            for (ModuleNeeded moule : neededLibraries1) {
+                modules4log4j.add(moule.getModuleName());
+            }
+            if (!selectLog4j2) {
+                // case1: if original job need commons-logging:commons-logging:ja for log4j1
+                assertTrue(modules4log4j.contains("jcl-over-slf4j-1.7.25.jar"));
+            } else {
+                // case2: if original job need commons-logging:commons-logging:ja for log4j2
+                assertTrue(modules4log4j.contains("log4j-jcl-2.12.1.jar"));
+                // case3:if original job need log4j1 jar, add back log4j-1.2-api for log4j2
+                assertTrue(modules4log4j.contains("log4j-1.2-api-2.12.1.jar"));
+            }
         } finally {
             CommonsPlugin.setHeadless(headless);
         }
