@@ -1610,7 +1610,7 @@ public class JavaProcessor extends AbstractJavaProcessor implements IJavaBreakpo
 
     @Override
     public void updateModulesAfterSetLog4j(Collection<ModuleNeeded> modulesNeeded) {
-        JavaProcessorUtilities.addLog4jToModuleList(modulesNeeded, process);
+
     }
 
     protected String[] getAdditionCommandStrings() {

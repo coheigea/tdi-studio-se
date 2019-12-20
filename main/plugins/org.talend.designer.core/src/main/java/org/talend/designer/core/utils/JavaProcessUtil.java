@@ -67,10 +67,6 @@ import org.talend.repository.ui.utils.UpdateLog4jJarUtils;
 public class JavaProcessUtil {
 
     public static Set<ModuleNeeded> getNeededModules(final IProcess process, int options) {
-        return getNeededModules(process, options, false);
-    }
-
-    public static Set<ModuleNeeded> getNeededModules(final IProcess process, int options, boolean isOriganlModuleNeeded) {
         List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>();
         // see bug 4939: making tRunjobs work loop will cause a error of "out of memory"
         Set<ProcessItem> searchItems = new HashSet<ProcessItem>();
@@ -119,10 +115,8 @@ public class JavaProcessUtil {
         if (BitwiseOptionUtils.containOption(options, TalendProcessOptionConstants.MODULES_EXCLUDE_SHADED)) {
             new BigDataJobUtil(process).removeExcludedModules(modulesNeeded);
         }
-        if (!isOriganlModuleNeeded) {
-            UpdateLog4jJarUtils.addLog4jToModuleList(modulesNeeded, Log4jPrefsSettingManager.getInstance().isSelectLog4j2(),
-                    process);
-        }
+
+        UpdateLog4jJarUtils.addLog4jToModuleList(modulesNeeded, Log4jPrefsSettingManager.getInstance().isSelectLog4j2(), process);
         return new HashSet<ModuleNeeded>(modulesNeeded);
     }
 

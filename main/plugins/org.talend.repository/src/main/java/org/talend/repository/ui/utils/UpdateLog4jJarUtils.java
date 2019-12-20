@@ -36,7 +36,7 @@ public class UpdateLog4jJarUtils {
     public static void addLog4jToModuleList(Collection<ModuleNeeded> jarList, boolean isSelectLog4j2, IProcess currentProcess) {
         List<ModuleNeeded> modulesUsedBefore = removeLog4jFromModuleListAndGetModulesUsedBefore(currentProcess, jarList);
         addBackModules(jarList, isSelectLog4j2, modulesUsedBefore, currentProcess);
-        System.out.println("=======addLog4jToModuleList===========");
+
     }
 
     public static final String[] MODULES_NEED_ADDED_BACK = { "log4j-jcl-2.12.1.jar", "log4j-jul-2.12.1.jar",
