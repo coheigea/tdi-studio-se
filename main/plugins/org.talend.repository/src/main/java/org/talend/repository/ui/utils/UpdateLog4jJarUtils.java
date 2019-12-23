@@ -199,7 +199,7 @@ public class UpdateLog4jJarUtils {
 
     private static List<ModuleNeeded> getSpecialModulesUsedBefore(List<ModuleNeeded> modulesUsedBefore, ModuleNeeded module) {
         for (String moduleUsedBefore : SPECIALMODULESUSEDBEFORES) {
-            if (module.getModuleName().matches(moduleUsedBefore)) { // $NON-NLS-1$
+            if (module.getModuleName().matches(moduleUsedBefore) || module.getModuleName().startsWith("talend-bigdata")) { // $NON-NLS-1$
                 modulesUsedBefore.add(module);
             }
         }
@@ -208,7 +208,7 @@ public class UpdateLog4jJarUtils {
 
     private static List<String> getSpecialJarsUsedBefore(List<String> jarsUsedBefore, String jar) {
         for (String moduleUsedBefore : SPECIALMODULESUSEDBEFORES) {
-            if (jar.matches(moduleUsedBefore)) { // $NON-NLS-1$
+            if (jar.matches(moduleUsedBefore) || jar.startsWith("talend-bigdata")) { // $NON-NLS-1$
                 jarsUsedBefore.add(jar);
             }
         }
