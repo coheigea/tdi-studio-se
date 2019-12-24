@@ -68,7 +68,7 @@ public class UpdateLog4jJarUtils {
                 if (module.matches("log4j-jul-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     usedlog4jJulBefore = true;
                 }
-                if (module.matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar") || module.startsWith("talend-bigdata")) { //$NON-NLS-1$
+                if (module.matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     usedlog4j1JarBefore = true;
                 }
             }
@@ -125,8 +125,8 @@ public class UpdateLog4jJarUtils {
                 if (module.getModuleName().matches("log4j-jul-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
                     usedlog4jJulBefore = true;
                 }
-                if (module.getModuleName().matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar") //$NON-NLS-1$
-                        || module.getModuleName().startsWith("talend-bigdata")) {
+                if (module.getModuleName().matches("log4j-\\d+\\.\\d+\\.\\d+\\.jar")) { //$NON-NLS-1$
+
                     usedlog4j1JarBefore = true;
                 }
             }

@@ -155,6 +155,7 @@ import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.designer.runprocess.i18n.Messages;
 import org.talend.designer.runprocess.prefs.RunProcessPrefsConstants;
 import org.talend.designer.runprocess.utils.JobVMArgumentsUtil;
+import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.constants.BuildJobConstants;
 import org.talend.repository.ui.utils.UpdateLog4jJarUtils;
@@ -1475,6 +1476,22 @@ public class JavaProcessor extends AbstractJavaProcessor implements IJavaBreakpo
                 process.getVersion());
         if (neededModulesLogjarUnsorted.isEmpty()) {
             neededModulesLogjarUnsorted = getNeededModules(option);
+        }
+        Set<ModuleNeeded> optionalJarsOnlyForRoutines = new HashSet<ModuleNeeded>();
+
+        // only for wizards or additional jars only to make the java project compile without any error.
+        for (ModuleNeeded moduleNeeded : ModulesNeededProvider.getRunningModules()) {
+            optionalJarsOnlyForRoutines.add(moduleNeeded);
+        }
+        Map<String, ModuleNeeded> map = new HashMap<>();
+        for (ModuleNeeded jar : neededModulesLogjarUnsorted) {
+            map.put(jar.getModuleName(), jar);
+        }
+
+        for (ModuleNeeded jar : optionalJarsOnlyForRoutines) {
+            if (!map.containsKey(jar.getModuleName())) {
+                neededModulesLogjarUnsorted.add(jar);
+            }
         }
         JavaProcessorUtilities.checkJavaProjectLib(neededModulesLogjarUnsorted);
 
