@@ -182,6 +182,10 @@ public class JavaProcessUtil {
             if (item instanceof ProcessItem) {
                 modulesNeeded.addAll(ModulesNeededProvider.getModulesNeededForProcess((ProcessItem) item, process));
             }
+        } else {
+            Set<ModuleNeeded> optionalJarsOnlyForRoutines = new HashSet<ModuleNeeded>();
+            optionalJarsOnlyForRoutines.addAll(ModulesNeededProvider.getSystemRunningModules());
+            modulesNeeded.addAll(optionalJarsOnlyForRoutines);
         }
 
         boolean isTestcaseProcess = ProcessUtils.isTestContainer(process);

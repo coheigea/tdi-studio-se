@@ -155,7 +155,6 @@ import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.designer.runprocess.i18n.Messages;
 import org.talend.designer.runprocess.prefs.RunProcessPrefsConstants;
 import org.talend.designer.runprocess.utils.JobVMArgumentsUtil;
-import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.repository.ProjectManager;
 import org.talend.repository.constants.BuildJobConstants;
 import org.talend.repository.ui.utils.UpdateLog4jJarUtils;
@@ -1477,22 +1476,6 @@ public class JavaProcessor extends AbstractJavaProcessor implements IJavaBreakpo
         if (neededModulesLogjarUnsorted.isEmpty()) {
             neededModulesLogjarUnsorted = getNeededModules(option);
         }
-        Set<ModuleNeeded> optionalJarsOnlyForRoutines = new HashSet<ModuleNeeded>();
-
-        // only for wizards or additional jars only to make the java project compile without any error.
-        for (ModuleNeeded moduleNeeded : ModulesNeededProvider.getRunningModules()) {
-            optionalJarsOnlyForRoutines.add(moduleNeeded);
-        }
-        Map<String, ModuleNeeded> map = new HashMap<>();
-        for (ModuleNeeded jar : neededModulesLogjarUnsorted) {
-            map.put(jar.getModuleName(), jar);
-        }
-
-        for (ModuleNeeded jar : optionalJarsOnlyForRoutines) {
-            if (!map.containsKey(jar.getModuleName())) {
-                neededModulesLogjarUnsorted.add(jar);
-            }
-        }
         JavaProcessorUtilities.checkJavaProjectLib(neededModulesLogjarUnsorted);
 
         Set<ModuleNeeded> highPriorityModuleNeeded = LastGenerationInfo.getInstance().getHighPriorityModuleNeeded(process.getId(),
@@ -1512,6 +1495,25 @@ public class JavaProcessor extends AbstractJavaProcessor implements IJavaBreakpo
                     return 0;
                 }
                 for (String moduleName : UpdateLog4jJarUtils.MODULES_NEED_ADDED_BACK) {
+                    if (StringUtils.equals(moduleName, o1.getModuleName())
+                            && !StringUtils.equals(moduleName, o2.getModuleName())) {
+                        return -1;
+                    }
+                    if (!StringUtils.equals(moduleName, o1.getModuleName())
+                            && StringUtils.equals(moduleName, o2.getModuleName())) {
+                        return 1;
+                    }
+                }
+                return 0;
+
+            }
+        });
+
+        Collections.sort(neededModules, new Comparator<ModuleNeeded>() {
+
+            @Override
+            public int compare(ModuleNeeded o1, ModuleNeeded o2) {
+                for (String moduleName : UpdateLog4jJarUtils.MODULES_NEED_UPDATE_ORDER) {
                     if (StringUtils.equals(moduleName, o1.getModuleName())
                             && !StringUtils.equals(moduleName, o2.getModuleName())) {
                         return -1;

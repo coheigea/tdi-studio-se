@@ -23,6 +23,8 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
 
 public class UpdateLog4jJarUtils {
 
+    public static final String[] MODULES_NEED_UPDATE_ORDER = { "spark-assembly-1.6.0-hadoop2.6.0.jar" };
+
     public static void addLog4jToJarList(Collection<String> jarList, boolean isSelectLog4j2) {
         IProcess process = null;
         if (GlobalServiceRegister.getDefault().isServiceRegistered(IRunProcessService.class)) {
@@ -225,7 +227,7 @@ public class UpdateLog4jJarUtils {
 
     private static List<ModuleNeeded> getSpecialModulesUsedBefore(List<ModuleNeeded> modulesUsedBefore, ModuleNeeded module) {
         for (String moduleUsedBefore : SPECIALMODULESUSEDBEFORES) {
-            if (module.getModuleName().matches(moduleUsedBefore) || module.getModuleName().startsWith("talend-bigdata")) { // $NON-NLS-1$
+            if (module.getModuleName().matches(moduleUsedBefore)) {
                 modulesUsedBefore.add(module);
             }
         }
@@ -234,7 +236,7 @@ public class UpdateLog4jJarUtils {
 
     private static List<String> getSpecialJarsUsedBefore(List<String> jarsUsedBefore, String jar) {
         for (String moduleUsedBefore : SPECIALMODULESUSEDBEFORES) {
-            if (jar.matches(moduleUsedBefore) || jar.startsWith("talend-bigdata")) { // $NON-NLS-1$
+            if (jar.matches(moduleUsedBefore)) {
                 jarsUsedBefore.add(jar);
             }
         }
