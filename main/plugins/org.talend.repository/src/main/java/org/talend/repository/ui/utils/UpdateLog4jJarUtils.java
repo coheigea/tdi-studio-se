@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.lang3.StringUtils;
 import org.talend.commons.CommonsPlugin;
@@ -18,8 +21,11 @@ import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Property;
+import org.talend.core.runtime.maven.MavenArtifact;
 import org.talend.core.runtime.maven.MavenUrlHelper;
 import org.talend.core.runtime.process.LastGenerationInfo;
+import org.talend.designer.maven.utils.MavenVersionHelper;
+import org.talend.designer.maven.utils.PomUtil;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 
@@ -45,11 +51,13 @@ public class UpdateLog4jJarUtils {
     public static void addLog4jToModuleList(Collection<ModuleNeeded> jarList, Collection<ModuleNeeded> childJarList,
             boolean isSelectLog4j2, IProcess currentProcess) {
         List<ModuleNeeded> modulesUsedBefore = removeLog4jFromModuleListAndGetModulesUsedBefore(currentProcess, jarList);
+
         if (childJarList != null) {
             for (ModuleNeeded module : childJarList) {
                 getSpecialModulesUsedBefore(modulesUsedBefore, module);
             }
         }
+
         addBackModules(jarList, isSelectLog4j2, modulesUsedBefore, currentProcess);
     }
 
@@ -197,6 +205,80 @@ public class UpdateLog4jJarUtils {
             log4j.setMavenUri("mvn:log4j/log4j/1.2.17");//$NON-NLS-1$
             moduleNeededList.add(log4j);
         }
+
+        romoveModuleWithSameVersion(moduleNeededList);
+    }
+
+    public static void romoveModuleWithSameVersion(Collection<ModuleNeeded> moduleNeededList) {
+        Comparator<ModuleNeeded> c = new Comparator<ModuleNeeded>() {
+
+            @Override
+            public int compare(ModuleNeeded m1, ModuleNeeded m2) {
+                MavenArtifact mavenArtifact1 = PomUtil.getMavenArtifact(m1);
+                String version1 = mavenArtifact1.getVersion();
+                MavenArtifact mavenArtifact2 = PomUtil.getMavenArtifact(m2);
+                String version2 = mavenArtifact2.getVersion();
+                return MavenVersionHelper.compareTo(version1, version2);
+            }
+
+        };
+        Map<String, List<ModuleNeeded>> map2 = new HashMap<>();
+
+        Set<ModuleNeeded> neededLibraries = new TreeSet<ModuleNeeded>(new Comparator<ModuleNeeded>() {
+
+            @Override
+            public int compare(ModuleNeeded m1, ModuleNeeded m2) {
+
+                String artifactUniqueName1 = getGroupIdAndArtifactId(m1);
+
+                String artifactUniqueName2 = getGroupIdAndArtifactId(m2);
+
+                if (StringUtils.equals(artifactUniqueName1, artifactUniqueName2)) {
+                    List<ModuleNeeded> list = new ArrayList<>();
+                    list.add(m1);
+                    list.add(m2);
+                    if (map2.containsKey(artifactUniqueName1)) {
+                        List<ModuleNeeded> listInMap = map2.get(artifactUniqueName1);
+                        if (listInMap != null) {
+                            listInMap.addAll(list);
+                        }
+
+                    }else {
+                        List<ModuleNeeded> listInMap = new ArrayList<>();
+                        listInMap.addAll(list);
+                        map2.put(artifactUniqueName1, listInMap);
+                    }
+                }
+
+                return (artifactUniqueName1).compareTo(artifactUniqueName2);
+            }
+        });
+        neededLibraries.addAll(moduleNeededList);
+
+        Iterator<ModuleNeeded> it = neededLibraries.iterator();
+        while (it.hasNext()) {
+            ModuleNeeded module = it.next();
+            String artifactUniqueName = getGroupIdAndArtifactId(module);
+            if (map2.containsKey(artifactUniqueName)) {
+                it.remove();
+            }
+        }
+
+        for (String key : map2.keySet()) {
+            List<ModuleNeeded> list = map2.get(key);
+            if (list != null) {
+                Collections.sort(list, c);
+                neededLibraries.add(list.get(list.size() - 1));
+            }
+        }
+
+        moduleNeededList.clear();
+        moduleNeededList.addAll(neededLibraries);
+    }
+
+    private static String getGroupIdAndArtifactId(ModuleNeeded module) {
+        MavenArtifact mavenArtifact = PomUtil.getMavenArtifact(module);
+        return String.join("/", mavenArtifact.getGroupId(), mavenArtifact.getArtifactId());
     }
 
     private static List<ModuleNeeded> removeLog4jFromModuleListAndGetModulesUsedBefore(IProcess process,
