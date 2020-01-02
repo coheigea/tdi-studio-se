@@ -222,7 +222,7 @@ public class UpdateLog4jJarUtils {
             }
 
         };
-        Map<String, List<ModuleNeeded>> map2 = new HashMap<>();
+        Map<String, List<ModuleNeeded>> groupIdAndArtifactIdToModule = new HashMap<>();
 
         Set<ModuleNeeded> neededLibraries = new TreeSet<ModuleNeeded>(new Comparator<ModuleNeeded>() {
 
@@ -237,8 +237,8 @@ public class UpdateLog4jJarUtils {
                     List<ModuleNeeded> list = new ArrayList<>();
                     list.add(m1);
                     list.add(m2);
-                    if (map2.containsKey(artifactUniqueName1)) {
-                        List<ModuleNeeded> listInMap = map2.get(artifactUniqueName1);
+                    if (groupIdAndArtifactIdToModule.containsKey(artifactUniqueName1)) {
+                        List<ModuleNeeded> listInMap = groupIdAndArtifactIdToModule.get(artifactUniqueName1);
                         if (listInMap != null) {
                             listInMap.addAll(list);
                         }
@@ -246,7 +246,7 @@ public class UpdateLog4jJarUtils {
                     }else {
                         List<ModuleNeeded> listInMap = new ArrayList<>();
                         listInMap.addAll(list);
-                        map2.put(artifactUniqueName1, listInMap);
+                        groupIdAndArtifactIdToModule.put(artifactUniqueName1, listInMap);
                     }
                 }
 
@@ -259,13 +259,13 @@ public class UpdateLog4jJarUtils {
         while (it.hasNext()) {
             ModuleNeeded module = it.next();
             String artifactUniqueName = getGroupIdAndArtifactId(module);
-            if (map2.containsKey(artifactUniqueName)) {
+            if (groupIdAndArtifactIdToModule.containsKey(artifactUniqueName)) {
                 it.remove();
             }
         }
 
-        for (String key : map2.keySet()) {
-            List<ModuleNeeded> list = map2.get(key);
+        for (String key : groupIdAndArtifactIdToModule.keySet()) {
+            List<ModuleNeeded> list = groupIdAndArtifactIdToModule.get(key);
             if (list != null) {
                 Collections.sort(list, c);
                 neededLibraries.add(list.get(list.size() - 1));
