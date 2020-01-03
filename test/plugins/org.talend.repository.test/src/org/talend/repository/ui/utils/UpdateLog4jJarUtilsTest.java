@@ -142,5 +142,4 @@ public class UpdateLog4jJarUtilsTest {
         jarList.add(log4j);
         return jarList;
     }
-
 }
