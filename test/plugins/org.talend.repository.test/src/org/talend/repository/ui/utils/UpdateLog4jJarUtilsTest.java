@@ -143,33 +143,4 @@ public class UpdateLog4jJarUtilsTest {
         return jarList;
     }
 
-    @Test
-    public void testRomoveModuleWithSameVersion() {
-
-        List<ModuleNeeded> moduleNeededs = prepareModuleNeededs();
-
-        UpdateLog4jJarUtils.romoveModuleWithSameVersion(moduleNeededs);
-
-        assertTrue(moduleNeededs.size() == 1);
-        assertTrue(moduleNeededs.get(0).getModuleName().equals("slf4j-api-1.4.25.jar"));
-    }
-
-    private List<ModuleNeeded> prepareModuleNeededs() {
-        List<ModuleNeeded> moduleNeededSet = new ArrayList<ModuleNeeded>();
-
-        ModuleNeeded slf4j1 = new ModuleNeeded("org.slf4j", "slf4j-api-1.1.25.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
-        slf4j1.setMavenUri("mvn:org.slf4j/slf4j-api/1.1.25");//$NON-NLS-1$
-        moduleNeededSet.add(slf4j1);
-        ModuleNeeded slf4j2 = new ModuleNeeded("org.slf4j", "slf4j-api-1.3.25.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
-        slf4j2.setMavenUri("mvn:org.slf4j/slf4j-api/1.3.25");//$NON-NLS-1$
-
-        ModuleNeeded slf4j3 = new ModuleNeeded("org.slf4j", "slf4j-api-1.4.25.jar", null, true); //$NON-NLS-1$ //$NON-NLS-2$
-        slf4j3.setMavenUri("mvn:org.slf4j/slf4j-api/1.4.25");//$NON-NLS-1$
-
-        moduleNeededSet.add(slf4j1);
-        moduleNeededSet.add(slf4j2);
-        moduleNeededSet.add(slf4j3);
-        return moduleNeededSet;
-    }
-
 }
