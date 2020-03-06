@@ -137,4 +137,10 @@ public class ConnectionsDialog extends TitleAreaDialog {
         return listComposite.getList();
     }
 
+    @Override
+    protected void okPressed() {
+        // TODO Auto-generated method stub
+        super.okPressed();
+    }
+
 }

@@ -14,6 +14,7 @@ package org.talend.repository.ui.login;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
@@ -273,6 +274,8 @@ public abstract class AbstractLoginActionPage extends AbstractActionPage {
 
         protected List<StyleRange> errStyleRange;
 
+        protected String authExceptionMessage;
+
         public void clearAllMessages() {
             errMessage = null;
             warnMessage = null;
@@ -281,6 +284,7 @@ public abstract class AbstractLoginActionPage extends AbstractActionPage {
             warnStyleRange = null;
             infoStyleRange = null;
             loginDialog.clearErrorMessage();
+            authExceptionMessage = null;
         }
 
         public void hideAllMessages() {
@@ -349,6 +353,18 @@ public abstract class AbstractLoginActionPage extends AbstractActionPage {
                 hasError = true;
             }
             return hasError;
+        }
+
+        public String getAuthExceptionMessage() {
+            return authExceptionMessage;
+        }
+
+        public void setAuthExceptionMessage(String authExceptionMessage) {
+            this.authExceptionMessage = authExceptionMessage;
+        }
+
+        public boolean hasAuthException() {
+            return StringUtils.isNotBlank(authExceptionMessage);
         }
 
     }

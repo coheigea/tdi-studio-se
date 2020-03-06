@@ -858,41 +858,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                try {
-                    ConnectionsDialog connectionsDialog = new ConnectionsDialog(getShell());
-                    int open = connectionsDialog.open();
-                    if (open == Window.OK) {
-                        List<ConnectionBean> storedConnections = connectionsDialog.getConnections();
-                        loginHelper.setStoredConnections(storedConnections);
-                        loginHelper.saveConnections();
-                        fillUIContentsWithBusyCursor();
-                        final ConnectionBean connection = getConnection();
-                        if (connection == null) {
-                            checkErrors();
-                            return;
-                        }
-                        // beforeConnBean = connection;
-
-                        updateServerFields();
-
-                        // Validate data
-                        if (validateFields()) {
-                            fillUIProjectListWithBusyCursor();
-                            validateProject();
-                        }
-                        checkErrors();
-                        validateUpdate();
-                    } else if (!LoginHelper.isRemotesConnection(getConnection())) {
-                        fillUIProjectListWithBusyCursor();
-                        validateProject();
-                        checkErrors();
-                    }
-                    // setStatusArea();
-                } catch (PersistenceException e1) {
-                    CommonExceptionHandler.process(e1);
-                } catch (JSONException e2) {
-                    CommonExceptionHandler.process(e2);
-                }
+                handleOpenConnectionsDialog();
             }
         });
 
@@ -1017,14 +983,55 @@ public class LoginProjectPage extends AbstractLoginActionPage {
         } else {
             // should save before login, since svn related codes will read them
             saveLastUsedProjectAndBranch();
-            boolean isLogInOk = loginHelper.logIn(getConnection(), getProject());
+            boolean isLogInOk = loginHelper.logIn(getConnection(), getProject(), errorManager);
             if (isLogInOk) {
                 LoginHelper.setAlwaysAskAtStartup(alwaysAsk.getSelection());
                 loginDialog.okPressed();
             } else {
                 fillUIProjectListWithBusyCursor();
                 revertUpdateStatus();
+                if (errorManager.hasAuthException()) {
+                    handleOpenConnectionsDialog();
+                }
             }
+        }
+    }
+
+    private void handleOpenConnectionsDialog() {
+        try {
+            ConnectionsDialog connectionsDialog = new ConnectionsDialog(getShell());
+            int open = connectionsDialog.open();
+            if (open == Window.OK) {
+                List<ConnectionBean> storedConnections = connectionsDialog.getConnections();
+                loginHelper.setStoredConnections(storedConnections);
+                loginHelper.saveConnections();
+                fillUIContentsWithBusyCursor();
+                final ConnectionBean connection = getConnection();
+                if (connection == null) {
+                    checkErrors();
+                    return;
+                }
+                // beforeConnBean = connection;
+
+                updateServerFields();
+
+                // Validate data
+                if (validateFields()) {
+                    fillUIProjectListWithBusyCursor();
+                    validateProject();
+                }
+                checkErrors();
+                validateUpdate();
+            } else if (!LoginHelper.isRemotesConnection(getConnection())) {
+                fillUIProjectListWithBusyCursor();
+                validateProject();
+                checkErrors();
+            }
+            // setStatusArea();
+        } catch (PersistenceException e1) {
+            CommonExceptionHandler.process(e1);
+        } catch (JSONException e2) {
+            CommonExceptionHandler.process(e2);
         }
     }
 
@@ -1211,7 +1218,12 @@ public class LoginProjectPage extends AbstractLoginActionPage {
     protected void refreshNecessaryVisible(boolean isRemote) {
         boolean isSVNPluginLoaded = PluginChecker.isSVNProviderPluginLoaded();
 
-        refreshCreateSandboxProjectVisible(isNeedSandboxProject());
+        boolean needSandboxProject = isRemote;
+        if (!errorManager.hasAuthException()) {
+            // connect administrator exist error, avoid check isNeedSandboxProject from remote
+            needSandboxProject = isNeedSandboxProject();
+        }
+        refreshCreateSandboxProjectVisible(needSandboxProject);
         refreshImportLocalProjectVisible(!isRemote);
         refreshImportDemoProjectVisible(!isRemote);
         refreshCreateNewProjectVisible(!isRemote);
@@ -1220,7 +1232,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
         Control projectListAreaBottomControl = null;
         if (isSVNPluginLoaded) {
             if (isRemote) {
-                if (isNeedSandboxProject()) {
+                if (needSandboxProject) {
                     projectListAreaBottomControl = createSandBoxProject;
                 } else {
                     projectListAreaBottomControl = navigateArea;
@@ -1420,6 +1432,10 @@ public class LoginProjectPage extends AbstractLoginActionPage {
     }
 
     protected void validateUpdate() throws JSONException {
+        if (errorManager.hasAuthException()) {
+            // can't connect to remote
+            return;
+        }
         final ConnectionBean currentBean = getConnection();
         String repositoryId = null;
         // at 1st time open the studio there are no bean at all,so need avoid NPE
@@ -1722,7 +1738,10 @@ public class LoginProjectPage extends AbstractLoginActionPage {
      */
     protected void fillUIProjectList() {
 
-        Project[] projects = loginHelper.getProjects(getConnection(), errorManager);
+        Project[] projects = null;
+        if (!errorManager.hasAuthException()) {
+            projects = loginHelper.getProjects(getConnection(), errorManager);
+        }
         if (projects == null) {
             projects = new Project[0];
         }
