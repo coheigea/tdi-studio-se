@@ -46,6 +46,8 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -678,6 +680,9 @@ public class LoginProjectPage extends AbstractLoginActionPage {
                     }
                     checkErrors();
                     validateUpdate();
+                    if (errorManager.hasAuthException()) {
+                        handleOpenConnectionsDialog();
+                    }
                 } catch (PersistenceException e) {
                     CommonExceptionHandler.process(e);
                 } catch (JSONException e) {
@@ -862,6 +867,18 @@ public class LoginProjectPage extends AbstractLoginActionPage {
             }
         });
 
+        finishButton.addPaintListener(new PaintListener() {
+
+            @Override
+            public void paintControl(PaintEvent e) {
+                finishButton.removePaintListener(this);
+                // for start, page showed complete
+                if (errorManager.hasAuthException()) {
+                    handleOpenConnectionsDialog();
+                }
+            }
+        });
+
         refreshProjectButton.addSelectionListener(new SelectionAdapter() {
 
             @Override
@@ -997,9 +1014,10 @@ public class LoginProjectPage extends AbstractLoginActionPage {
         }
     }
 
-    private void handleOpenConnectionsDialog() {
+    public void handleOpenConnectionsDialog() {
         try {
-            ConnectionsDialog connectionsDialog = new ConnectionsDialog(getShell());
+            ConnectionsDialog connectionsDialog = new ConnectionsDialog(getShell(), getConnection(),
+                    errorManager.hasAuthException());
             int open = connectionsDialog.open();
             if (open == Window.OK) {
                 List<ConnectionBean> storedConnections = connectionsDialog.getConnections();
@@ -2221,6 +2239,14 @@ public class LoginProjectPage extends AbstractLoginActionPage {
                 loginDialog.clearErrorMessage();
             }
         }
+
+//        @Override
+//        public void setErrMessage(String errMessage, List<StyleRange> errStyleRange) {
+//            super.setErrMessage(errMessage, errStyleRange);
+//            if (getShell().isVisible() && hasAuthException()) {
+//                handleOpenConnectionsDialog();
+//            }
+//        }
 
         @Override
         public boolean showErrorMessage() {

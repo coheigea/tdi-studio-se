@@ -566,11 +566,11 @@ public class LoginHelper {
                 }
             }
         } catch (Exception e1) {
+            CommonExceptionHandler.process(e1);
             if (isAuthorizationException(e1) && errorManager != null) {
                 errorManager.setAuthExceptionMessage(e1.getMessage());
                 errorManager.setErrMessage(Messages.getString("LoginComposite.errorMessages1") + ":\n" + e1.getMessage());//$NON-NLS-1$ //$NON-NLS-2$
-            } else {
-                CommonExceptionHandler.process(e1);
+                return false;
             }
         }
 
@@ -615,8 +615,9 @@ public class LoginHelper {
                 Display.getDefault().syncExec(() -> MessageDialog.openInformation(Display.getDefault().getActiveShell(),
                         Messages.getString("LoginDialog.logonDenyTitle"), e.getTargetException().getLocalizedMessage()));
             } else if (isAuthorizationException(e.getTargetException()) && errorManager != null) {
-                errorManager.setAuthExceptionMessage(e.getMessage());
-                errorManager.setErrMessage(Messages.getString("LoginComposite.errorMessages1") + ":\n" + e.getMessage());//$NON-NLS-1$ //$NON-NLS-2$
+                errorManager.setAuthExceptionMessage(e.getTargetException().getMessage());
+                errorManager.setErrMessage(
+                        Messages.getString("LoginComposite.errorMessages1") + ":\n" + e.getTargetException().getMessage());//$NON-NLS-1$ //$NON-NLS-2$
             } else {
                 MessageBoxExceptionHandler.process(e.getTargetException(), getUsableShell());
             }
