@@ -2240,14 +2240,6 @@ public class LoginProjectPage extends AbstractLoginActionPage {
             }
         }
 
-//        @Override
-//        public void setErrMessage(String errMessage, List<StyleRange> errStyleRange) {
-//            super.setErrMessage(errMessage, errStyleRange);
-//            if (getShell().isVisible() && hasAuthException()) {
-//                handleOpenConnectionsDialog();
-//            }
-//        }
-
         @Override
         public boolean showErrorMessage() {
             boolean hasMsg = super.showErrorMessage();
