@@ -680,7 +680,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
                     }
                     checkErrors();
                     validateUpdate();
-                    if (errorManager.hasAuthException()) {
+                    if (errorManager.isHasAuthException()) {
                         handleOpenConnectionsDialog();
                     }
                 } catch (PersistenceException e) {
@@ -873,7 +873,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
             public void paintControl(PaintEvent e) {
                 finishButton.removePaintListener(this);
                 // for start, page showed complete
-                if (errorManager.hasAuthException()) {
+                if (errorManager.isHasAuthException()) {
                     handleOpenConnectionsDialog();
                 }
             }
@@ -1007,7 +1007,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
             } else {
                 fillUIProjectListWithBusyCursor();
                 revertUpdateStatus();
-                if (errorManager.hasAuthException()) {
+                if (errorManager.isHasAuthException()) {
                     handleOpenConnectionsDialog();
                 }
             }
@@ -1017,7 +1017,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
     public void handleOpenConnectionsDialog() {
         try {
             ConnectionsDialog connectionsDialog = new ConnectionsDialog(getShell(), getConnection(),
-                    errorManager.hasAuthException());
+                    errorManager.isHasAuthException());
             int open = connectionsDialog.open();
             if (open == Window.OK) {
                 List<ConnectionBean> storedConnections = connectionsDialog.getConnections();
@@ -1237,7 +1237,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
         boolean isSVNPluginLoaded = PluginChecker.isSVNProviderPluginLoaded();
 
         boolean needSandboxProject = isRemote;
-        if (!errorManager.hasAuthException()) {
+        if (!errorManager.isHasAuthException()) {
             // connect administrator exist error, avoid check isNeedSandboxProject from remote
             needSandboxProject = isNeedSandboxProject();
         }
@@ -1450,7 +1450,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
     }
 
     protected void validateUpdate() throws JSONException {
-        if (errorManager.hasAuthException()) {
+        if (errorManager.isHasAuthException()) {
             // can't connect to remote
             return;
         }
@@ -1757,7 +1757,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
     protected void fillUIProjectList() {
 
         Project[] projects = null;
-        if (!errorManager.hasAuthException()) {
+        if (!errorManager.isHasAuthException()) {
             projects = loginHelper.getProjects(getConnection(), errorManager);
         }
         if (projects == null) {

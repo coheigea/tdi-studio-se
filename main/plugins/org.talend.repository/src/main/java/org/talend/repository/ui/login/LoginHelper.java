@@ -39,6 +39,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.CommonsPlugin;
 import org.talend.commons.exception.BusinessException;
+import org.talend.commons.exception.ClientException;
 import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.InformException;
 import org.talend.commons.exception.LoginException;
@@ -568,6 +569,7 @@ public class LoginHelper {
         } catch (Exception e1) {
             CommonExceptionHandler.process(e1);
             if (isAuthorizationException(e1) && errorManager != null) {
+                errorManager.setHasAuthException(true);
                 errorManager.setAuthExceptionMessage(e1.getMessage());
                 errorManager.setErrMessage(Messages.getString("LoginComposite.errorMessages1") + ":\n" + e1.getMessage());//$NON-NLS-1$ //$NON-NLS-2$
                 return false;
@@ -640,7 +642,14 @@ public class LoginHelper {
     }
 
     public static boolean isAuthorizationException(Throwable exception) {
-        return exception.getMessage() != null && exception.getMessage().startsWith("401");
+        boolean flag = false;
+        if (exception instanceof ClientException) {
+            ClientException e = (ClientException) exception;
+            if (e.getHttpCode() != null && e.getHttpCode() == 401) {
+                flag = true;
+            }
+        }
+        return flag;
     }
 
     public void saveUpdateStatus(Project project) throws JSONException {
@@ -773,6 +782,7 @@ public class LoginHelper {
             initialized = true;
         } catch (Throwable e) {
             if (isAuthorizationException(e)) {
+                errorManager.setHasAuthException(true);
                 errorManager.setAuthExceptionMessage(e.getMessage());
             }
             projects = new Project[0];
