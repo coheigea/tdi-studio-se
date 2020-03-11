@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.repository.ui.processor;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jface.viewers.Viewer;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IESBService;
@@ -20,6 +22,7 @@ import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.HeaderFooterConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
+import org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl;
 import org.talend.core.model.metadata.designerproperties.RepositoryToComponentProperty;
 import org.talend.core.model.param.ERepositoryCategoryType;
 import org.talend.core.model.properties.ConnectionItem;
@@ -45,6 +48,10 @@ public class RepositoryTypeProcessor extends SingleTypeProcessor {
 
     boolean isGeneric;
 
+    private String componentName;
+
+    private String[] listItemsDisplayName;
+
     /**
      * DOC bqian RepositoryTypeProcessor constructor comment.
      *
@@ -54,9 +61,12 @@ public class RepositoryTypeProcessor extends SingleTypeProcessor {
         super(repositoryType);
     }
 
-    public RepositoryTypeProcessor(String repositoryType, boolean isGeneric) {
+    public RepositoryTypeProcessor(String repositoryType, boolean isGeneric, String componentName,
+            String[] listItemsDisplayName) {
         super(repositoryType);
         this.isGeneric = isGeneric;
+        this.componentName = componentName;
+        this.listItemsDisplayName = listItemsDisplayName;
     }
 
     @Override
@@ -236,6 +246,16 @@ public class RepositoryTypeProcessor extends SingleTypeProcessor {
                         return false;
                     }
                 }
+
+                if (connection instanceof DatabaseConnectionImpl) {
+                    String databaseType = ((DatabaseConnectionImpl) connection).getDatabaseType();
+                    if (StringUtils.equals("tCreateTable", this.componentName) && listItemsDisplayName != null) {
+                        if (!ArrayUtils.contains(listItemsDisplayName, databaseType)) {
+                            return false;
+                        }
+                    }
+                }
+
             }
         }
         if (repositoryType.startsWith(ERepositoryCategoryType.HEADERFOOTER.getName())) {

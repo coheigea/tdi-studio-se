@@ -305,6 +305,13 @@ public class RepositoryReviewDialog extends Dialog {
                 return processor;
             }
         }
+        String componentName = null;
+        String[] listItemsDisplayName = null;
+        if (this.elem != null && (this.elem instanceof INode)) {
+            componentName = ((INode) elem).getComponent().getName();
+            IElementParameter elementParameter = ((INode) elem).getElementParameter("DBTYPE");
+            listItemsDisplayName = elementParameter.getListItemsDisplayName();
+        }
         boolean isGeneric = false;
         if(this.elem != null && (this.elem instanceof INode)
                 && ((INode)elem).getComponent().getComponentType() == EComponentType.GENERIC){
@@ -326,7 +333,7 @@ public class RepositoryReviewDialog extends Dialog {
         }
 
         if (type == ERepositoryObjectType.METADATA) {
-            return new RepositoryTypeProcessor(repositoryType, isGeneric);
+            return new RepositoryTypeProcessor(repositoryType, isGeneric, componentName, listItemsDisplayName);
         }
 
         if (type == ERepositoryObjectType.METADATA_CON_TABLE) {
