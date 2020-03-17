@@ -570,7 +570,7 @@ public class LoginHelper {
             CommonExceptionHandler.process(e1);
             if (isAuthorizationException(e1) && errorManager != null) {
                 errorManager.setHasAuthException(true);
-                errorManager.setAuthExceptionMessage(e1.getMessage());
+                errorManager.setAuthException(e1);
                 errorManager.setErrMessage(Messages.getString("LoginComposite.errorMessages1") + ":\n" + e1.getMessage());//$NON-NLS-1$ //$NON-NLS-2$
                 return false;
             }
@@ -617,7 +617,7 @@ public class LoginHelper {
                 Display.getDefault().syncExec(() -> MessageDialog.openInformation(Display.getDefault().getActiveShell(),
                         Messages.getString("LoginDialog.logonDenyTitle"), e.getTargetException().getLocalizedMessage()));
             } else if (isAuthorizationException(e.getTargetException()) && errorManager != null) {
-                errorManager.setAuthExceptionMessage(e.getTargetException().getMessage());
+                errorManager.setAuthException(e.getTargetException());
                 errorManager.setErrMessage(
                         Messages.getString("LoginComposite.errorMessages1") + ":\n" + e.getTargetException().getMessage());//$NON-NLS-1$ //$NON-NLS-2$
             } else {
@@ -783,7 +783,7 @@ public class LoginHelper {
         } catch (Throwable e) {
             if (isAuthorizationException(e)) {
                 errorManager.setHasAuthException(true);
-                errorManager.setAuthExceptionMessage(e.getMessage());
+                errorManager.setAuthException(e);
             }
             projects = new Project[0];
             if (errorManager != null) {

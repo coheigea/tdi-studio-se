@@ -681,7 +681,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
                     checkErrors();
                     validateUpdate();
                     if (errorManager.isHasAuthException()) {
-                        handleOpenConnectionsDialog();
+                        handleOpenConnectionsDialog(true);
                     }
                 } catch (PersistenceException e) {
                     CommonExceptionHandler.process(e);
@@ -863,7 +863,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                handleOpenConnectionsDialog();
+                handleOpenConnectionsDialog(false);
             }
         });
 
@@ -874,7 +874,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
                 finishButton.removePaintListener(this);
                 // for start, page showed complete
                 if (errorManager.isHasAuthException()) {
-                    handleOpenConnectionsDialog();
+                    handleOpenConnectionsDialog(true);
                 }
             }
         });
@@ -1008,14 +1008,24 @@ public class LoginProjectPage extends AbstractLoginActionPage {
                 fillUIProjectListWithBusyCursor();
                 revertUpdateStatus();
                 if (errorManager.isHasAuthException()) {
-                    handleOpenConnectionsDialog();
+                    handleOpenConnectionsDialog(true);
                 }
             }
         }
     }
 
-    public void handleOpenConnectionsDialog() {
+    public void handleOpenConnectionsDialog(boolean showError) {
         try {
+            if (showError && errorManager.isHasAuthException()) {
+                String[] dialogButtonLabels = new String[] { IDialogConstants.YES_LABEL, IDialogConstants.CANCEL_LABEL };
+                MessageDialog dialog = new ExceptionMessageDialog(getShell(),
+                        Messages.getString("LoginProjectPage.errorMessageTitle"), null, //$NON-NLS-1$
+                        Messages.getString("LoginProjectPage.authorizationErrorMessage"), MessageDialog.ERROR, //$NON-NLS-1$
+                        dialogButtonLabels, 0, errorManager.getAuthException());
+                if (dialog.open() == Window.CANCEL) {
+                    return;
+                }
+            }
             ConnectionsDialog connectionsDialog = new ConnectionsDialog(getShell(), getConnection(),
                     errorManager.isHasAuthException());
             int open = connectionsDialog.open();
@@ -1024,7 +1034,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
                 loginHelper.setStoredConnections(storedConnections);
                 loginHelper.saveConnections();
                 // reset flag to connect again
-                errorManager.setAuthExceptionMessage(null);
+                errorManager.setAuthException(null);
                 errorManager.setHasAuthException(false);
                 fillUIContentsWithBusyCursor();
                 final ConnectionBean connection = getConnection();
@@ -1044,7 +1054,7 @@ public class LoginProjectPage extends AbstractLoginActionPage {
                 checkErrors();
                 validateUpdate();
                 if (errorManager.isHasAuthException()) {
-                    handleOpenConnectionsDialog();
+                    handleOpenConnectionsDialog(true);
                 }
             } else if (!LoginHelper.isRemotesConnection(getConnection())) {
                 fillUIProjectListWithBusyCursor();
