@@ -1023,6 +1023,9 @@ public class LoginProjectPage extends AbstractLoginActionPage {
                 List<ConnectionBean> storedConnections = connectionsDialog.getConnections();
                 loginHelper.setStoredConnections(storedConnections);
                 loginHelper.saveConnections();
+                // reset flag to connect again
+                errorManager.setAuthExceptionMessage(null);
+                errorManager.setHasAuthException(false);
                 fillUIContentsWithBusyCursor();
                 final ConnectionBean connection = getConnection();
                 if (connection == null) {
@@ -1040,6 +1043,9 @@ public class LoginProjectPage extends AbstractLoginActionPage {
                 }
                 checkErrors();
                 validateUpdate();
+                if (errorManager.isHasAuthException()) {
+                    handleOpenConnectionsDialog();
+                }
             } else if (!LoginHelper.isRemotesConnection(getConnection())) {
                 fillUIProjectListWithBusyCursor();
                 validateProject();
