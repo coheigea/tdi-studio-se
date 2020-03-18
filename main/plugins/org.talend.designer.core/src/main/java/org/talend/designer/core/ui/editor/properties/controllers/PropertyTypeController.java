@@ -319,6 +319,15 @@ public class PropertyTypeController extends AbstractRepositoryController {
         Map<String, LinkRulesItem> repositoryLinkRulesItemMap = null;
         String paramName = (String) button.getData(PARAMETER_NAME);
         IElementParameter param = elem.getElementParameter(paramName);
+        IElementParameter elementParameter = elem.getElementParameter("DBTYPE");//$NON-NLS-1$
+        if (param != null && elementParameter != null) {
+            String repositoryValue = param.getRepositoryValue();
+            String dbTypeValue = (String) elementParameter.getValue();
+            if (repositoryValue != null && !StringUtils.equals(repositoryValue, "DATABASE:" + dbTypeValue)) {//$NON-NLS-1$
+                param.setRepositoryValue("DATABASE:" + dbTypeValue);//$NON-NLS-1$
+            }
+        }
+
         Object data = button.getData(NAME);
         if (data != null && data.equals(REPOSITORY_CHOICE)) {
             IElementParameter dbTypeParam = null;
@@ -332,15 +341,6 @@ public class PropertyTypeController extends AbstractRepositoryController {
                 }
 
             }
-            String[] listRepositoryItems = null;
-            if (dbTypeParam != null) {
-                listRepositoryItems = dbTypeParam.getListRepositoryItems();
-            }
-            if (this.elem != null && (this.elem instanceof INode)
-                    && StringUtils.equals("tCreateTable", ((INode) elem).getComponent().getName())) {
-                dbTypeParam = ((INode) elem).getElementParameter("DBTYPE");
-                listRepositoryItems = dbTypeParam.getListItemsDisplayCodeName();
-            }
             Item item = null;
             String id = null;
             RepositoryNode selectNode = null;
@@ -348,6 +348,7 @@ public class PropertyTypeController extends AbstractRepositoryController {
             if (id == null) {
                 RepositoryReviewDialog dialog = null;
                 if (dbTypeParam != null) {
+                    String[] listRepositoryItems = dbTypeParam.getListRepositoryItems();
                     dialog = new RepositoryReviewDialog(Display.getCurrent().getActiveShell(), ERepositoryObjectType.METADATA,
                             param.getRepositoryValue(), listRepositoryItems);
                 } else {
