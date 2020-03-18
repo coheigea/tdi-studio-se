@@ -305,13 +305,6 @@ public class RepositoryReviewDialog extends Dialog {
                 return processor;
             }
         }
-        String componentName = null;
-        String[] listItemsDisplayName = null;
-        if (this.elem != null && (this.elem instanceof INode)) {
-            componentName = ((INode) elem).getComponent().getName();
-            IElementParameter elementParameter = ((INode) elem).getElementParameter("DBTYPE");
-            listItemsDisplayName = elementParameter.getListItemsDisplayName();
-        }
         boolean isGeneric = false;
         if(this.elem != null && (this.elem instanceof INode)
                 && ((INode)elem).getComponent().getComponentType() == EComponentType.GENERIC){
@@ -333,7 +326,7 @@ public class RepositoryReviewDialog extends Dialog {
         }
 
         if (type == ERepositoryObjectType.METADATA) {
-            return new RepositoryTypeProcessor(repositoryType, isGeneric, componentName, listItemsDisplayName);
+            return new RepositoryTypeProcessor(repositoryType, isGeneric);
         }
 
         if (type == ERepositoryObjectType.METADATA_CON_TABLE) {
@@ -783,6 +776,8 @@ class DatabaseTypeFilter extends ViewerFilter {
                         databaseType = EDatabaseTypeName.ORACLE_OCI.getXmlName();
                     } else if (databaseType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
                         databaseType = EDatabaseTypeName.MSSQL.getXmlName(); // for component
+                    } else if (databaseType.equals(EDatabaseTypeName.REDSHIFT_SSO.getDisplayName())) {
+                        databaseType = EDatabaseTypeName.REDSHIFT_SSO.getXmlName(); // for component
                     } else {
                         databaseType = EDatabaseTypeName.getTypeFromDbType(databaseType).getProduct();
                     }
