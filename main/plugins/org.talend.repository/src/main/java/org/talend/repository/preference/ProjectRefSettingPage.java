@@ -282,17 +282,14 @@ public class ProjectRefSettingPage extends ProjectSettingPage {
         strictButton = new Button(strCom, SWT.CHECK);
         strictButton.setLayoutData(new GridData());
         strictButton.setText(Messages.getString("ReferenceProjectSetupPage.ButtonTooltipStrict")); //$NON-NLS-1$
+        boolean strict = false;
         ProjectPreferenceManager projectPreferenceManager = CoreRuntimePlugin.getInstance()
                 .getProjectPreferenceManager();
-        boolean strict = projectPreferenceManager.getBoolean(IProjectSettingPreferenceConstants.USE_STRICT_REFERENCE_JOBLET);
+        if(projectPreferenceManager != null) {
+            strict = projectPreferenceManager.getBoolean(
+                    IProjectSettingPreferenceConstants.USE_STRICT_REFERENCE_JOBLET);
+        }
         strictButton.setSelection(strict);
-        strictButton.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                setStrictJoblets();
-            }
-        });
 
         form.setWeights(new int[] { 1, 1 });
 
@@ -506,10 +503,6 @@ public class ProjectRefSettingPage extends ProjectSettingPage {
             }
         }
         return null;
-    }
-    
-    private void setStrictJoblets() {
-        
     }
 
     private void addProjectReference() {

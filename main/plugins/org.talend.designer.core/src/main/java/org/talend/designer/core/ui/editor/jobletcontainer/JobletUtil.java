@@ -106,6 +106,9 @@ public class JobletUtil {
     public boolean isStrictJoblet() {
         ProjectPreferenceManager projectPreferenceManager = CoreRuntimePlugin.getInstance()
                 .getProjectPreferenceManager();
+        if(projectPreferenceManager == null) {
+            return false;
+        }
         return projectPreferenceManager.getBoolean(IProjectSettingPreferenceConstants.USE_STRICT_REFERENCE_JOBLET);
     }
 
