@@ -191,9 +191,11 @@ if(hasInput){
         }
         %>
 
-        writer_<%=cid%>.write(data_<%=cid%>);
+        if (writer_<%=cid% != null) {
+            writer_<%=cid%>.write(data_<%=cid%>);
         
-        nb_line_<%=cid %>++;
+            nb_line_<%=cid %>++;
+        }
         <%if(hasMainOutput){
             %>
         	if(!(writer_<%=cid%> instanceof org.talend.components.api.component.runtime.WriterWithFeedback)) {
